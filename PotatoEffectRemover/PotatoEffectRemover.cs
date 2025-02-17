@@ -31,12 +31,13 @@ namespace PER
             Options.GetEvent();
 
             ConfigManager.LoadConfigs(out Options.configs, out Options.chosen_config, Path.Combine(modEntry.Path, "Configs.json"));
+            LocalizationManager.LoadLanguages(modEntry.Path + "text.json");
         }
         private static bool OnToggle(UnityModManager.ModEntry modEntry, bool isToggled)
         {
             var harmony = new Harmony(modEntry.Info.Id);// 创建唯一标识的 Harmony 实例
             if (isToggled)
-            {               
+            {
                 harmony.PatchAll();
             }
             else
@@ -50,24 +51,35 @@ namespace PER
 
         public class DecodePatch
         {
-            public static void Postfix(LevelData __instance, Dictionary<string, object> dict, out LoadResult status)
+            public static void Postfix(LevelData __instance, Dictionary<string, object> dict)
             {
                 if (mod.Enabled)
                 {
                     if(Options.chosen_config < 0 || Options.chosen_config >= Options.configs.Count)
                     {
-                        status = LoadResult.Successful;
+                        //status = LoadResult.Successful;
                         return;
                     }
                     int i = 0;
                     while (i < __instance.levelEvents.Count)
                     {
                         string eventname = __instance.levelEvents[i].eventType.ToString();
-                        Debug.Log(eventname);
-                        if (Options.configs[Options.chosen_config].events[eventname] == Options.configs[Options.chosen_config].if_blacklist)
+                        //Debug.Log(eventname);
+                        if (Options.configs[Options.chosen_config].events.ContainsKey(eventname))
                         {
-                            __instance.levelEvents.RemoveAt(i);
-                            continue;
+                            if (Options.configs[Options.chosen_config].events[eventname] == Options.configs[Options.chosen_config].if_blacklist)
+                            {
+                                __instance.levelEvents.RemoveAt(i);
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if (Options.configs[Options.chosen_config].if_blacklist == false)
+                            {
+                                __instance.levelEvents.RemoveAt(i);
+                                continue;
+                            }
                         }
                         i++;
                     }
@@ -75,16 +87,27 @@ namespace PER
                     while (i < __instance.decorations.Count)
                     {
                         string eventname = __instance.decorations[i].eventType.ToString();
-                        Debug.Log(eventname);
-                        if (Options.configs[Options.chosen_config].events[eventname] == Options.configs[Options.chosen_config].if_blacklist)
+                        //Debug.Log(eventname);
+                        if (Options.configs[Options.chosen_config].events.ContainsKey(eventname))
                         {
-                            __instance.decorations.RemoveAt(i);
-                            continue;
+                            if(Options.configs[Options.chosen_config].events[eventname] == Options.configs[Options.chosen_config].if_blacklist)
+                            {
+                                __instance.decorations.RemoveAt(i);
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if (Options.configs[Options.chosen_config].if_blacklist==false)
+                            {
+                                __instance.decorations.RemoveAt(i);
+                                continue;
+                            }
                         }
                         i++;
                     }
                 }
-                status = LoadResult.Successful;
+                //status = LoadResult.Successful;
             }
         }
 

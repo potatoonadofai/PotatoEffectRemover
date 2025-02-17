@@ -2,7 +2,7 @@
     "Id": "PotatoEffecrRemover",
     "DisplayName": "PotatoEffecrRemover",
     "Author": "Potato",
-    "Version": "0.0.1",
+    "Version": "0.0.2",
     "AssemblyName": "PotatoEffectRemover.dll",
     "EntryMethod": "PER.Main.Load"
 }

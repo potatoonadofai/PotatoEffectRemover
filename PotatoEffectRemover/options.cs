@@ -14,6 +14,8 @@ using static UnityEngine.Random;
 using System.Collections;
 using System.Xml.Linq;
 using System.IO;
+using SA.GoogleDoc;
+using System.Linq;
 
 
 namespace PER
@@ -56,19 +58,20 @@ namespace PER
         }
         public static void OnGUI(UnityModManager.ModEntry modEntry)
         {
+            LocalizationManager.GetLanguages();
             while (chosen_config >= configs.Count)
             {
                 chosen_config--;
             }
             if (!if_main)
             {
-                if (GUILayout.Button("<size=20><保存并返回</size>", GUILayout.Width(150), GUILayout.Height(30)))
+                if (GUILayout.Button("<size=20><"+LocalizationManager.GetLocalizedText("editor.save")+"</size>", GUILayout.Width(300), GUILayout.Height(30)))
                 {
                     if_main = true;
                     ConfigManager.SaveConfigs(configs, chosen_config, Path.Combine(modEntry.Path, "Configs.json"));
                 }
 
-                if (GUILayout.Button($"<size=20>筛选模式:{(configs[chosen_config].if_blacklist ? "黑名单" : "白名单")}</size>", GUILayout.Width(150), GUILayout.Height(30)))
+                if (GUILayout.Button("<size=20>"+LocalizationManager.GetLocalizedText("editor.filtering_mode") +":"+(configs[chosen_config].if_blacklist ? LocalizationManager.GetLocalizedText("editor.blacklist") : LocalizationManager.GetLocalizedText("editor.whitelist")) +"</size>", GUILayout.Width(500), GUILayout.Height(30)))
                 {
                     configs[chosen_config].if_blacklist = !configs[chosen_config].if_blacklist;
                 }
@@ -77,23 +80,31 @@ namespace PER
 
                 foreach (ADOFAI.LevelEventType eventType in levelEvents)
                 {
-                    if (!configs[chosen_config].events.ContainsKey(eventType.ToString()))
+                    if(eventType != LevelEventType.None && !EditorConstants.settingsTypes.Contains(eventType))
                     {
-                        configs[chosen_config].events[eventType.ToString()] = false;
+                        string text = RDString.Get("editor." + eventType.ToString(), null, LangSection.Translations);
+                        if (text == "")
+                        {
+                            continue;
+                        }
+                        if (!configs[chosen_config].events.ContainsKey(eventType.ToString()))
+                        {
+                            configs[chosen_config].events[eventType.ToString()] = false;
+                        }
+                        GUILayout.BeginHorizontal();
+                        configs[chosen_config].events[eventType.ToString()] = GUILayout.Toggle(configs[chosen_config].events[eventType.ToString()], $"<size=20>{text}</size>");
+                        GUILayout.EndHorizontal();
                     }
-                    GUILayout.BeginHorizontal();
-                    configs[chosen_config].events[eventType.ToString()]=GUILayout.Toggle(configs[chosen_config].events[eventType.ToString()],$"<size=20>{eventType}</size>");
-                    GUILayout.EndHorizontal();
                 }
 
                 GUILayout.EndScrollView();
             }
             else
             {
-                GUILayout.Label("<size=20>Potato Effect Remover</size>");
-                GUILayout.Label("<color=#FF2222><size=20> 注意！编辑器内保存功能将会被禁用！</size></color>", Array.Empty<GUILayoutOption>());
+                GUILayout.Label("<size=20>"+LocalizationManager.GetLocalizedText("main.title")+"</size>");
+                GUILayout.Label("<color=#FF2222><size=20>"+LocalizationManager.GetLocalizedText("main.warning")+"</size></color>", Array.Empty<GUILayoutOption>());
 
-                if (GUILayout.Button($"<size=20>当前配置:{(chosen_config>=0 && chosen_config < configs.Count ? configs[chosen_config].name : "无")}</size>", GUILayout.Width(500), GUILayout.Height(30)))
+                if (GUILayout.Button("<size=20>"+LocalizationManager.GetLocalizedText("main.now_selection") +":"+(chosen_config>=0 && chosen_config < configs.Count ? configs[chosen_config].name : LocalizationManager.GetLocalizedText("main.none")) +"</size>", GUILayout.Width(500), GUILayout.Height(30)))
                 {
                     popup = !popup;
                 }
@@ -113,7 +124,7 @@ namespace PER
                     GUILayout.EndScrollView();
                 }
                 
-                if (GUILayout.Button("<size=20>新建</size>", GUILayout.Width(100), GUILayout.Height(30)))
+                if (GUILayout.Button("<size=20>"+ LocalizationManager.GetLocalizedText("main.new")+ "</size>", GUILayout.Width(200), GUILayout.Height(30)))
                 {
                     configs.Add(new Config());
                     chosen_config = configs.Count - 1;
@@ -127,16 +138,16 @@ namespace PER
                 GUILayout.BeginHorizontal();
                 if (!if_rename)
                 {
-                    if (GUILayout.Button("<size=20>重命名选中项</size>", GUILayout.Width(150), GUILayout.Height(30)))
+                    if (GUILayout.Button("<size=20>"+ LocalizationManager.GetLocalizedText("main.rename_selection") + "</size>", GUILayout.Width(300), GUILayout.Height(30)))
                     {
                         if_rename = true;
                     }
                 }
                 else
                 {
-                    GUILayout.Label("<size=20>重命名为:</size>");
+                    GUILayout.Label("<size=20>"+ LocalizationManager.GetLocalizedText("main.renameto") + ":</size>");
                     inputText = GUILayout.TextField(inputText);
-                    if (GUILayout.Button("<size=20>确定</size>", GUILayout.Width(150), GUILayout.Height(30)))
+                    if (GUILayout.Button("<size=20>"+ LocalizationManager.GetLocalizedText("main.confirm") + "</size>", GUILayout.Width(300), GUILayout.Height(30)))
                     {
                         if (inputText != "")
                         {
@@ -147,11 +158,11 @@ namespace PER
                     }
                 }
                 GUILayout.EndHorizontal();
-                if (GUILayout.Button("<size=20>编辑选中项</size>", GUILayout.Width(150), GUILayout.Height(30)))
+                if (GUILayout.Button("<size=20>"+ LocalizationManager.GetLocalizedText("main.edit_selection") + "</size>", GUILayout.Width(300), GUILayout.Height(30)))
                 {
                     if_main = false;
                 }
-                if (GUILayout.Button("<size=20>删除选中项</size>", GUILayout.Width(150), GUILayout.Height(30)))
+                if (GUILayout.Button("<size=20>"+ LocalizationManager.GetLocalizedText("main.delete_selection") + "</size>", GUILayout.Width(300), GUILayout.Height(30)))
                 {
                     configs.RemoveAt(chosen_config);
                     while(chosen_config>=configs.Count)
