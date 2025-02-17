@@ -1,0 +1,8 @@
+{
+    "Id": "PotatoEffecrRemover",
+    "DisplayName": "PotatoEffecrRemover",
+    "Author": "Potato",
+    "Version": "0.0.1",
+    "AssemblyName": "PotatoEffectRemover.dll",
+    "EntryMethod": "PER.Main.Load"
+}
