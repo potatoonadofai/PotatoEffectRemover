@@ -28,9 +28,10 @@ namespace PER
             mod.OnToggle = new Func<UnityModManager.ModEntry, bool, bool>(OnToggle);
 
             mod.OnGUI = Options.OnGUI;
+            mod.OnHideGUI = Options.OnHideGUI;
             Options.GetEvent();
 
-            ConfigManager.LoadConfigs(out Options.configs, out Options.chosen_config, Path.Combine(modEntry.Path, "Configs.json"));
+            ConfigManager.LoadConfigs(out Options.configs, out Options.chosen_config,out Options.Other_Settings,out Options.Other_Ints, out Options.Other_Strings, Path.Combine(modEntry.Path, "Configs.json"));
             LocalizationManager.LoadLanguages(modEntry.Path + "text.json");
         }
         private static bool OnToggle(UnityModManager.ModEntry modEntry, bool isToggled)
@@ -134,5 +135,59 @@ namespace PER
                 __instance.buttonSave.interactable = false;
             }
         }
+
+
+        [HarmonyPatch(typeof(scrFloor), "Update")]
+
+        public class scrFloorUpdatePatch
+        {
+            public static bool Prefix(scrFloor __instance)
+            {
+                m1=MethodBase.GetCurrentMethod();
+                if (__instance == null || !scrController.instance.gameworld)
+                {
+                    return true;
+                }
+                if (!Options.Other_Settings.ContainsKey("tile_opti"))
+                {
+                    Options.Other_Settings["tile_opti"] = false;
+                }
+                if (mod.Enabled && Options.Other_Settings["tile_opti"])
+                {
+                    __instance.enabled = false;
+                    __instance.bottomGlow.gameObject.SetActive(false);
+                    __instance.topGlow.gameObject.SetActive(false);
+                    return false;
+                }
+                return true;
+            }
+        }
+
+
+        [HarmonyPatch(typeof(scrFloor), "LightUp")]
+
+        public class scrFloorLightUpPatch
+        {
+            public static void Postfix(scrFloor __instance)
+            {
+                m2 = MethodBase.GetCurrentMethod();
+                if (__instance == null || !scrController.instance.gameworld)
+                {
+                    return;
+                }
+                if (!Options.Other_Settings.ContainsKey("tile_opti"))
+                {
+                    Options.Other_Settings["tile_opti"] = false;
+                }
+                if (mod.Enabled && Options.Other_Settings["tile_opti"])
+                {
+                    UnityEngine.GameObject.Destroy(__instance.topGlow);
+                    UnityEngine.GameObject.Destroy(__instance.bottomGlow);
+                }
+            }
+        }
+
+        static public MethodBase m1 = null;
+        static public MethodBase m2 = null;
     }
 }

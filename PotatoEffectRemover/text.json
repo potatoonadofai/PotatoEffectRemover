@@ -10,10 +10,17 @@
         "main.confirm": "Confirm",
         "main.edit_selection": "Edit",
         "main.delete_selection": "Delete",
-        "editor.save": "Save and return",
+        "editor.save": "Return to main screen",
         "editor.filtering_mode": "Filtering mode",
         "editor.blacklist": "Blacklist",
-        "editor.whitelist": "Whitelist"
+        "editor.whitelist": "Whitelist",
+        "fixs.title": "Miscellaneous settings",
+        "fixs.text1": "Disable tile updates",
+        "modUI.title": "Language and font settings",
+        "modUI.language": "Language",
+        "modUI.currlanguage": "English",
+        "modUI.gamelanguage": "Follow game language",
+        "modUI.textsize": "Text size"
     },
     "zh": {
         "main.title": "Potato Effect Remover",
@@ -26,10 +33,17 @@
         "main.confirm": "确定",
         "main.edit_selection": "编辑选中项",
         "main.delete_selection": "删除选中项",
-        "editor.save": "保存并返回",
+        "editor.save": "返回主界面",
         "editor.filtering_mode": "筛选模式",
         "editor.blacklist": "黑名单",
-        "editor.whitelist": "白名单"
+        "editor.whitelist": "白名单",
+        "fixs.title": "杂项设置",
+        "fixs.text1": "禁用砖块更新",
+        "modUI.title": "语言、字体设置",
+        "modUI.language": "语言",
+        "modUI.currlanguage": "简体中文",
+        "modUI.gamelanguage": "跟随游戏语言",
+        "modUI.textsize": "字体大小"
     },
     "zh-t": {
         "main.title": "Potato Effect Remover",
@@ -42,10 +56,17 @@
         "main.confirm": "確定",
         "main.edit_selection": "編輯選中項",
         "main.delete_selection": "刪除選中項",
-        "editor.save": "保存並返回",
+        "editor.save": "返回主界面",
         "editor.filtering_mode": "篩選模式",
         "editor.blacklist": "黑名單",
-        "editor.whitelist": "白名單"
+        "editor.whitelist": "白名單",
+        "fixs.title": "雜項設置",
+        "fixs.text1": "禁用磚塊更新",
+        "modUI.title": "語言、字體設置",
+        "modUI.language": "語言",
+        "modUI.currlanguage": "繁體中文",
+        "modUI.gamelanguage": "跟隨遊戲語言",
+        "modUI.textsize": "字體大小"
     },
     "ko": {
         "main.title": "Potato Effect Remover",
@@ -58,10 +79,17 @@
         "main.confirm": "확인",
         "main.edit_selection": "선택한 항목 편집",
         "main.delete_selection": "선택한 항목 삭제",
-        "editor.save": "저장하고 돌아가기",
+        "editor.save": "메인 인터페이스로 돌아가기",
         "editor.filtering_mode": "필터링 모드",
         "editor.blacklist": "블랙리스트",
-        "editor.whitelist": "화이트리스트"
+        "editor.whitelist": "화이트리스트",
+        "fixs.title": "기타 설정",
+        "fixs.text1": "블록 업데이트 비활성화",
+        "modUI.title": "언어 및 글꼴 설정",
+        "modUI.language": "언어",
+        "modUI.currlanguage": "한국어",
+        "modUI.gamelanguage": "게임 언어 따라하기",
+        "modUI.textsize": "텍스트 크기"
     },
     "ja": {
         "main.title": "Potato Effect Remover",
@@ -74,10 +102,17 @@
         "main.confirm": "確認",
         "main.edit_selection": "選択した項目を編集",
         "main.delete_selection": "選択した項目を削除",
-        "editor.save": "保存して戻る",
+        "editor.save": "メインインターフェイスに戻る",
         "editor.filtering_mode": "フィルタリングモード",
         "editor.blacklist": "ブラックリスト",
-        "editor.whitelist": "ホワイトリスト"
+        "editor.whitelist": "ホワイトリスト",
+        "fixs.title": "その他設定",
+        "fixs.text1": "ブロックの更新を無効にする",
+        "modUI.title": "言語とフォント設定",
+        "modUI.language": "言語",
+        "modUI.currlanguage": "日本語",
+        "modUI.gamelanguage": "ゲームの言語に従う",
+        "modUI.textsize": "テキストサイズ"
     },
     "es": {
         "main.title": "Potato Effect Remover",
@@ -90,10 +125,17 @@
         "main.confirm": "Confirmar",
         "main.edit_selection": "Editar",
         "main.delete_selection": "Eliminar",
-        "editor.save": "Guardar y volver",
+        "editor.save": "Volver a la interfaz principal",
         "editor.filtering_mode": "Modo de filtrado",
         "editor.blacklist": "Lista negra",
-        "editor.whitelist": "Lista blanca"
+        "editor.whitelist": "Lista blanca",
+        "fixs.title": "Otras configuraciones",
+        "fixs.text1": "Deshabilitar actualizaciones de bloques",
+        "modUI.title": "Idioma y configuración de fuente",
+        "modUI.language": "Idioma",
+        "modUI.currlanguage": "Español",
+        "modUI.gamelanguage": "Seguir el idioma del juego",
+        "modUI.textsize": "Tamaño del texto"
     },
     "pt": {
         "main.title": "Potato Effect Remover",
@@ -106,10 +148,17 @@
         "main.confirm": "Confirmar",
         "main.edit_selection": "Editar",
         "main.delete_selection": "Excluir",
-        "editor.save": "Salvar e retornar",
+        "editor.save": "Voltar à interface principal",
         "editor.filtering_mode": "Modo de filtragem",
         "editor.blacklist": "Lista negra",
-        "editor.whitelist": "Lista branca"
+        "editor.whitelist": "Lista branca",
+        "fixs.title": "Outras configurações",
+        "fixs.text1": "Desativar atualizações de blocos",
+        "modUI.title": "Idioma e configuração de fonte",
+        "modUI.language": "Idioma",
+        "modUI.currlanguage": "Português",
+        "modUI.gamelanguage": "Seguir o idioma do jogo",
+        "modUI.textsize": "Tamanho do texto"
     },
     "fr": {
         "main.title": "Potato Effect Remover",
@@ -122,10 +171,17 @@
         "main.confirm": "Confirmer",
         "main.edit_selection": "Éditer",
         "main.delete_selection": "Supprimer",
-        "editor.save": "Enregistrer et retourner",
+        "editor.save": "Retour à l'interface principale",
         "editor.filtering_mode": "Mode de filtrage",
         "editor.blacklist": "Liste noire",
-        "editor.whitelist": "Liste blanche"
+        "editor.whitelist": "Liste blanche",
+        "fixs.title": "Autres paramètres",
+        "fixs.text1": "Désactiver les mises à jour de blocs",
+        "modUI.title": "Langue et paramètres de police",
+        "modUI.language": "Langue",
+        "modUI.currlanguage": "Français",
+        "modUI.gamelanguage": "Suivre la langue du jeu",
+        "modUI.textsize": "Taille du texte"
     },
     "pl": {
         "main.title": "Potato Effect Remover",
@@ -138,10 +194,17 @@
         "main.confirm": "Potwierdź",
         "main.edit_selection": "Edytuj",
         "main.delete_selection": "Usuń",
-        "editor.save": "Zapisz i powróć",
+        "editor.save": "Powrót do interfejsu głównego",
         "editor.filtering_mode": "Tryb filtracji",
         "editor.blacklist": "Czarna lista",
-        "editor.whitelist": "Biała lista"
+        "editor.whitelist": "Biała lista",
+        "fixs.title": "Inne ustawienia",
+        "fixs.text1": "Wyłącz aktualizacje bloków",
+        "modUI.title": "Język i ustawienia czcionki",
+        "modUI.language": "Język",
+        "modUI.currlanguage": "Polski",
+        "modUI.gamelanguage": "Następuj za językiem gry",
+        "modUI.textsize": "Rozmiar tekstu"
     },
     "ro": {
         "main.title": "Potato Effect Remover",
@@ -154,10 +217,17 @@
         "main.confirm": "Confirmă",
         "main.edit_selection": "Editează",
         "main.delete_selection": "Șterge",
-        "editor.save": "Salvează și întoarce",
+        "editor.save": "Revenire la interfața principală",
         "editor.filtering_mode": "Mod filtrare",
         "editor.blacklist": "Listă neagră",
-        "editor.whitelist": "Listă albă"
+        "editor.whitelist": "Listă albă",
+        "fixs.title": "Alte setări",
+        "fixs.text1": "Dezactivează actualizările blocurilor",
+        "modUI.title": "Limba și setările fontului",
+        "modUI.language": "Limba",
+        "modUI.currlanguage": "Română",
+        "modUI.gamelanguage": "Urmărește limba jocului",
+        "modUI.textsize": "Dimensiunea textului"
     },
     "ru": {
         "main.title": "Potato Effect Remover",
@@ -170,10 +240,17 @@
         "main.confirm": "Подтвердить",
         "main.edit_selection": "Редактировать",
         "main.delete_selection": "Удалить",
-        "editor.save": "Сохранить и вернуться",
+        "editor.save": "Вернуться к основному интерфейсу",
         "editor.filtering_mode": "Режим фильтрации",
         "editor.blacklist": "Черный список",
-        "editor.whitelist": "Белый список"
+        "editor.whitelist": "Белый список",
+        "fixs.title": "Другие настройки",
+        "fixs.text1": "Отключить обновления блоков",
+        "modUI.title": "Язык и настройки шрифта",
+        "modUI.language": "Язык",
+        "modUI.currlanguage": "Русский",
+        "modUI.gamelanguage": "Следовать языку игры",
+        "modUI.textsize": "Размер текста"
     },
     "vi": {
         "main.title": "Potato Effect Remover",
@@ -186,10 +263,17 @@
         "main.confirm": "Xác nhận",
         "main.edit_selection": "Sửa",
         "main.delete_selection": "Xóa",
-        "editor.save": "Lưu và trở lại",
+        "editor.save": "Trở lại giao diện chính",
         "editor.filtering_mode": "Chế độ lọc",
         "editor.blacklist": "Danh sách đen",
-        "editor.whitelist": "Danh sách trắng"
+        "editor.whitelist": "Danh sách trắng",
+        "fixs.title": "Các cài đặt khác",
+        "fixs.text1": "Vô hiệu hóa cập nhật khối",
+        "modUI.title": "Ngôn ngữ và cài đặt font",
+        "modUI.language": "Ngôn ngữ",
+        "modUI.currlanguage": "Tiếng Việt",
+        "modUI.gamelanguage": "Theo dõi ngôn ngữ trò chơi",
+        "modUI.textsize": "Kích thước văn bản"
     },
     "cs": {
         "main.title": "Potato Effect Remover",
@@ -202,10 +286,17 @@
         "main.confirm": "Potvrdit",
         "main.edit_selection": "Upravit",
         "main.delete_selection": "Smazat",
-        "editor.save": "Uložit a vrátit se",
+        "editor.save": "Návrat k hlavnímu rozhraní",
         "editor.filtering_mode": "Režim filtrování",
         "editor.blacklist": "Černá lista",
-        "editor.whitelist": "Bílá lista"
+        "editor.whitelist": "Bílá lista",
+        "fixs.title": "Další nastavení",
+        "fixs.text1": "Vypnout aktualizace bloků",
+        "modUI.title": "Jazyk a nastavení písma",
+        "modUI.language": "Jazyk",
+        "modUI.currlanguage": "Čeština",
+        "modUI.gamelanguage": "Následovat jazyk hry",
+        "modUI.textsize": "Velikost textu"
     },
     "de": {
         "main.title": "Potato Effect Remover",
@@ -218,9 +309,16 @@
         "main.confirm": "Bestätigen",
         "main.edit_selection": "Bearbeiten",
         "main.delete_selection": "Löschen",
-        "editor.save": "Speichern und zurückkehren",
+        "editor.save": "Zurück zur Hauptoberfläche",
         "editor.filtering_mode": "Filtermodus",
         "editor.blacklist": "Schwarze Liste",
-        "editor.whitelist": "Weiße Liste"
+        "editor.whitelist": "Weiße Liste",
+        "fixs.title": "Weitere Einstellungen",
+        "fixs.text1": "Deaktiviere Block-Updates",
+        "modUI.title": "Sprache und Schriftarten-Einstellungen",
+        "modUI.language": "Sprache",
+        "modUI.currlanguage": "Deutsch",
+        "modUI.gamelanguage": "Folge der Spielersprache",
+        "modUI.textsize": "Textgröße"
     }
 }
