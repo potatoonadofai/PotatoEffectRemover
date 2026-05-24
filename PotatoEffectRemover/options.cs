@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityModManagerNet;
-using SkyHook;
 using HarmonyLib;
 using ADOFAI;
 using MonsterLove.StateMachine;
@@ -70,7 +69,6 @@ namespace PER
             langpopup = false;
             if_UIsets=false;
         }
-        
 
         public static void GetEvent()
         {
@@ -84,8 +82,23 @@ namespace PER
         {
             ConfigManager.SaveConfigs(configs, chosen_config, Other_Settings,Other_Ints,Other_Strings, Path.Combine(modEntry.Path, "Configs.json"));
             Reset();
+            if (Options.Other_Settings["tile_opti"])
+            {
+                Main.harmony.PatchCategory("PER.tile_opti");
+            }
+            else
+            {
+                Main.harmony.UnpatchCategory("PER.tile_opti");
+            }
+            popup = false;
+            if_main = true;
+            if_rename = false;
+            scrollPosition = Vector2.zero;
+            if_fixs = false;
+            langpopup = false;
+            if_UIsets = false;
         }
-        public static void OnGUI(UnityModManager.ModEntry modEntry)
+        public static void Check()
         {
             if (Other_Settings == null)
             {
@@ -103,6 +116,10 @@ namespace PER
             {
                 eventtext = new Dictionary<string, Dictionary<string, string>>();
             }
+            if (!Other_Settings.ContainsKey("tile_opti"))
+            {
+                Other_Settings["tile_opti"] = false;
+            }
             if (!Other_Ints.ContainsKey("text_size"))
             {
                 Other_Ints["text_size"] = 20;
@@ -117,15 +134,16 @@ namespace PER
             }
             if (!eventtext.ContainsKey(Other_Strings["currlanguage"]))
             {
-                eventtext[Other_Strings["currlanguage"]]=new Dictionary<string, string>();
+                eventtext[Other_Strings["currlanguage"]] = new Dictionary<string, string>();
             }
 
             if (Other_Settings["follow_game_language"])
             {
                 LocalizationManager.GetLanguages();
+                Other_Strings["currlanguage"] = LocalizationManager.GetLangCode(RDString.language);
             }
 
-            if (LocalizationManager.currentLanguage!=Other_Strings["currlanguage"])
+            if (LocalizationManager.currentLanguage != Other_Strings["currlanguage"])
             {
                 LocalizationManager.SwitchLanguage(Other_Strings["currlanguage"]);
             }
@@ -134,6 +152,15 @@ namespace PER
             {
                 chosen_config--;
             }
+
+            while (chosen_config < 0)
+            {
+                chosen_config++;
+            }
+        }
+        public static void OnGUI(UnityModManager.ModEntry modEntry)
+        {
+            Check();
             if (!if_main)
             {
                 if (GUILayout.Button($"<size={Other_Ints["text_size"]}><"+LocalizationManager.GetLocalizedText("editor.save")+"</size>", GUILayout.Width((float)(Other_Ints["text_size"]*15)), GUILayout.Height((float)(Other_Ints["text_size"]*1.5))))
@@ -153,8 +180,8 @@ namespace PER
                     if(eventType != LevelEventType.None && !EditorConstants.settingsTypes.Contains(eventType))
                     {
                         string key = "editor." + eventType.ToString();
-                        string text = "";
-                        if (RDString.Get("editor." + eventType.ToString(), null, LangSection.Translations) == "")
+                        string text = RDString.Get(key, null);
+                        if (text == "")
                         {
                             continue;
                         }
@@ -164,7 +191,7 @@ namespace PER
                         }
                         else
                         {
-                            text = Localization.GetLocalizedString(key, LangSection.Translations, LocalizationManager.CodeToGoogleDocCode(Other_Strings["currlanguage"]));
+                            text = Localization.GetLocalizedString(key, LocalizationManager.CodeToLang(Other_Strings["currlanguage"]));
                             eventtext[Other_Strings["currlanguage"]][key] = text;
                         }
                         
@@ -225,8 +252,10 @@ namespace PER
                 }
                 else
                 {
+                    GUIStyle customTextFieldStyle = new GUIStyle(GUI.skin.textField);
+                    customTextFieldStyle.fontSize = Other_Ints["text_size"];
                     GUILayout.Label($"<size={Other_Ints["text_size"]}>"+ LocalizationManager.GetLocalizedText("main.renameto") + ":</size>");
-                    inputText = GUILayout.TextField(inputText);
+                    inputText = GUILayout.TextField(inputText, customTextFieldStyle, GUILayout.Width((float)(Other_Ints["text_size"] * 15)), GUILayout.Height((float)(Other_Ints["text_size"] * 1.5)));
                     if (GUILayout.Button($"<size={Other_Ints["text_size"]}>"+ LocalizationManager.GetLocalizedText("main.confirm") + "</size>", GUILayout.Width((float)(Other_Ints["text_size"]*15)), GUILayout.Height((float)(Other_Ints["text_size"]*1.5))))
                     {
                         if (inputText != "")
@@ -265,10 +294,6 @@ namespace PER
                         Other_Settings = new Dictionary<string, bool>();
                     }
                     GUILayout.BeginVertical();
-                    if (!Other_Settings.ContainsKey("tile_opti"))
-                    {
-                        Other_Settings["tile_opti"] = false;
-                    }
                     Other_Settings["tile_opti"] = GUILayout.Toggle(Other_Settings["tile_opti"], $"<size={Other_Ints["text_size"]}>" + LocalizationManager.GetLocalizedText("fixs.text1") + "</size>");
                     GUILayout.EndVertical();
                 }
@@ -343,6 +368,7 @@ namespace PER
                     GUILayout.EndHorizontal();
 
                     GUILayout.EndVertical();
+                    
                 }
             }
         }

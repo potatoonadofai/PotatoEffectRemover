@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityModManagerNet;
-using SkyHook;
 using HarmonyLib;
 using ADOFAI;
 using MonsterLove.StateMachine;
@@ -15,6 +14,7 @@ using System.Collections;
 using System.IO;
 using ADOFAI.Editor.Actions;
 using System.Reflection;
+using static UnityModManagerNet.UnityModManager;
 
 
 namespace PER
@@ -22,6 +22,7 @@ namespace PER
     public static class Main
     {
         public static UnityModManager.ModEntry mod;
+        public static Harmony harmony;
         public static void Load(UnityModManager.ModEntry modEntry)
         {
             mod = modEntry;
@@ -32,14 +33,24 @@ namespace PER
             Options.GetEvent();
 
             ConfigManager.LoadConfigs(out Options.configs, out Options.chosen_config,out Options.Other_Settings,out Options.Other_Ints, out Options.Other_Strings, Path.Combine(modEntry.Path, "Configs.json"));
+            Options.Check();
             LocalizationManager.LoadLanguages(modEntry.Path + "text.json");
         }
         private static bool OnToggle(UnityModManager.ModEntry modEntry, bool isToggled)
         {
-            var harmony = new Harmony(modEntry.Info.Id);// 创建唯一标识的 Harmony 实例
+            harmony = new Harmony(modEntry.Info.Id);// 创建唯一标识的 Harmony 实例
             if (isToggled)
             {
                 harmony.PatchAll();
+                harmony.PatchCategory("PER.main");
+                if (Options.Other_Settings["tile_opti"])
+                {
+                    harmony.PatchCategory("PER.tile_opti");
+                }
+                else
+                {
+                    harmony.UnpatchCategory("PER.tile_opti");
+                }
             }
             else
             {
@@ -49,10 +60,10 @@ namespace PER
         }
 
         [HarmonyPatch(typeof(LevelData), "Decode")]
-
+        [HarmonyPatchCategory("PER.main")]
         public class DecodePatch
         {
-            public static void Postfix(LevelData __instance, Dictionary<string, object> dict)
+            public static void Postfix(LevelData __instance)
             {
                 if (mod.Enabled)
                 {
@@ -113,6 +124,7 @@ namespace PER
         }
 
         [HarmonyPatch(typeof(SaveLevelEditorAction), "Execute")]
+        [HarmonyPatchCategory("PER.main")]
         private class DisableSave
         {
             // Token: 0x06000012 RID: 18 RVA: 0x00002A6C File Offset: 0x00000C6C
@@ -127,6 +139,7 @@ namespace PER
         }
 
         [HarmonyPatch(typeof(scnEditor), "OpenLevelCo")]
+        [HarmonyPatchCategory("PER.main")]
         private class DisableSaveButton
         {
             // Token: 0x06000010 RID: 16 RVA: 0x000029FC File Offset: 0x00000BFC
@@ -136,9 +149,8 @@ namespace PER
             }
         }
 
-
         [HarmonyPatch(typeof(scrFloor), "Update")]
-
+        [HarmonyPatchCategory("PER.tile_opti")]
         public class scrFloorUpdatePatch
         {
             public static bool Prefix(scrFloor __instance)
@@ -148,24 +160,15 @@ namespace PER
                 {
                     return true;
                 }
-                if (!Options.Other_Settings.ContainsKey("tile_opti"))
-                {
-                    Options.Other_Settings["tile_opti"] = false;
-                }
-                if (mod.Enabled && Options.Other_Settings["tile_opti"])
-                {
-                    __instance.enabled = false;
-                    __instance.bottomGlow.gameObject.SetActive(false);
-                    __instance.topGlow.gameObject.SetActive(false);
-                    return false;
-                }
-                return true;
+                __instance.enabled = false;
+                __instance.bottomGlow.gameObject.SetActive(false);
+                __instance.topGlow.gameObject.SetActive(false);
+                return false;
             }
         }
 
-
         [HarmonyPatch(typeof(scrFloor), "LightUp")]
-
+        [HarmonyPatchCategory("PER.tile_opti")]
         public class scrFloorLightUpPatch
         {
             public static void Postfix(scrFloor __instance)
@@ -175,15 +178,8 @@ namespace PER
                 {
                     return;
                 }
-                if (!Options.Other_Settings.ContainsKey("tile_opti"))
-                {
-                    Options.Other_Settings["tile_opti"] = false;
-                }
-                if (mod.Enabled && Options.Other_Settings["tile_opti"])
-                {
-                    UnityEngine.GameObject.Destroy(__instance.topGlow);
-                    UnityEngine.GameObject.Destroy(__instance.bottomGlow);
-                }
+                UnityEngine.GameObject.Destroy(__instance.topGlow);
+                UnityEngine.GameObject.Destroy(__instance.bottomGlow);
             }
         }
 

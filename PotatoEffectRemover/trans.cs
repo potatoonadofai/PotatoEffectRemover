@@ -130,66 +130,6 @@ public static class LocalizationManager
             SystemLanguage.German
         }
     };
-
-    public static Dictionary<string, LangCode> langCodeToGoogleDocCode = new Dictionary<string, LangCode>
-    {
-        {
-            "en",
-            LangCode.English
-        },
-        {
-            "ko",
-            LangCode.Korean
-        },
-        {
-            "zh",
-            LangCode.ChineseSimplified
-        },
-        {
-            "zh-t",
-            LangCode.ChineseTraditional
-        },
-        {
-            "es",
-            LangCode.Spanish
-        },
-        {
-            "pt",
-            LangCode.Portuguese
-        },
-        {
-            "ja",
-            LangCode.Japanese
-        },
-        {
-            "pl",
-            LangCode.Polish
-        },
-        {
-            "ru",
-            LangCode.Russian
-        },
-        {
-            "ro",
-            LangCode.Romanian
-        },
-        {
-            "vi",
-            LangCode.Vietnamese
-        },
-        {
-            "fr",
-            LangCode.French
-        },
-        {
-            "cs",
-            LangCode.Czech
-        },
-        {
-            "de",
-            LangCode.German
-        }
-    };
     public static string GetLangCode(SystemLanguage lang)
     {
         if(langlist.ContainsKey(lang)) return langlist[lang];
@@ -199,12 +139,6 @@ public static class LocalizationManager
     {
         if (langCodeToLanguage.ContainsKey(code)) return langCodeToLanguage[code];
         return SystemLanguage.English;
-    }
-
-    public static LangCode CodeToGoogleDocCode(string code)
-    {
-        if (langCodeToGoogleDocCode.ContainsKey(code)) return langCodeToGoogleDocCode[code];
-        return LangCode.English;
     }
     public static void GetLanguages()
     {
