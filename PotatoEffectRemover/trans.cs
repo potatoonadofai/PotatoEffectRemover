@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
@@ -190,15 +190,6 @@ public static class LocalizationManager
         else
         {
             //Debug.LogWarning($"Language '{lang}' not found.");
-        }
-
-        // 回退到英文，避免显示原始 key
-        if (lang != "en" && languageData.TryGetValue("en", out Dictionary<string, string> enDict))
-        {
-            if (enDict.TryGetValue(key, out string enValue))
-            {
-                return enValue;
-            }
         }
 
         // 如果找不到，返回默认值

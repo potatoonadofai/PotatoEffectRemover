@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityModManagerNet;
@@ -65,17 +65,11 @@ namespace PER
         {
             public static void Postfix(LevelData __instance)
             {
-                // 记录原始统计
-                Options.stat_events = __instance.levelEvents.Count;
-                Options.stat_decorations = __instance.decorations.Count;
-
                 if (mod.Enabled)
                 {
                     if(Options.chosen_config < 0 || Options.chosen_config >= Options.configs.Count)
                     {
                         //status = LoadResult.Successful;
-                        Options.stat_events_filtered = __instance.levelEvents.Count;
-                        Options.stat_decorations_filtered = __instance.decorations.Count;
                         return;
                     }
                     int i = 0;
@@ -125,10 +119,6 @@ namespace PER
                         i++;
                     }
                 }
-
-                // 记录过滤后统计
-                Options.stat_events_filtered = __instance.levelEvents.Count;
-                Options.stat_decorations_filtered = __instance.decorations.Count;
                 //status = LoadResult.Successful;
             }
         }
